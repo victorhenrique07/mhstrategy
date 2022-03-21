@@ -4,6 +4,6 @@ services:
   web:
     build: .
     ports:
-      - "5000:3000"
-    container_name: flask-api
+      - "3000:3000"
+    container_name: mhstrategy-api
     restart: always
