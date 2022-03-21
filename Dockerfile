@@ -7,7 +7,7 @@ WORKDIR /code
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-RUN pip install Flask && pip install cryptography
+RUN pip install Flask && pip install cryptography && pip install flask-sqlalchemy
 
 EXPOSE 3000
 
