@@ -5,12 +5,10 @@ ADD . /code
 WORKDIR /code
 
 ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=1.1.1.1
+ENV FLASK_RUN_HOST=0.0.0.0
 ENV DATABASE_URI=mariadb+psycopg2://root:94082@localhost/MHStrategy
 
-RUN pip install flask && pip install cryptography \
-    && pip install flask-sqlalchemy && pip install python-dotenv \
-    && pip install psycopg2
+RUN poetry install
 
 EXPOSE 3000
 
