@@ -8,7 +8,7 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV DATABASE_URI=mariadb+psycopg2://root:94082@localhost/MHStrategy
 
-RUN poetry install
+RUN pip install flask
 
 EXPOSE 3000
 
