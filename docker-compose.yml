@@ -19,5 +19,7 @@ services:
       - "3000:3000"
     container_name: mhstrategy-api
     restart: always
+    volumes:
+      - ./flask_app:/app/flask_app
     links:
       - db

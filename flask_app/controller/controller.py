@@ -2,7 +2,7 @@ import json
 from flask import Response, request
 from flask_app.config.db import db
 from flask_app.model.model import *
-from cryptography.fernet import Fernet
+import bcrypt
 
 
 def create_routes(app):
@@ -12,19 +12,24 @@ def create_routes(app):
 
     @app.route("/register", methods=["POST"])
     def register_user():
-        body = request.get_json()
+        email = request.json.get("email", None)
+        password = request.json.get("password", None)
+        username = request.json.get("username", None)
 
         try:
+            hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             user = User(
-                email=body["email"],
-                password=body["password"],
-                username=body["username"]
+                email=email,
+                password=hashed,
+                username=username
             )
-            user.password = encrypt_pass(user.password)
-            return user.password
+            db.session.add(user)
+            db.session.commit()
+            return f'Welcome! {email}', 201
+          #  return get_response(201, "register user", user.to_json(), "User registered")
         except Exception as e:
             print(e)
-            return "shit"
+            return get_response(404, "shit", e)
 
 
 def get_response(status, resource_name, resource, message=False):
@@ -37,12 +42,3 @@ def get_response(status, resource_name, resource, message=False):
         status=status,
         mimetype="application/json"
     )
-
-
-def encrypt_pass(password):
-    password = bytes(password, encoding='utf8')
-    key = Fernet.generate_key()
-    f = Fernet(key)
-    token = f.encrypt(password)
-    return token
-
