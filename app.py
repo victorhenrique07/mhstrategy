@@ -1,7 +1,7 @@
 from flask_app.controller.controller import create_routes
 from flask import Flask
 import os
-from flask_app.config.db import db
+from flask_app.db import db
 
 DATABASE_URI = os.getenv('DATABASE_URI')
 
