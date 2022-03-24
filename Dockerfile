@@ -6,11 +6,8 @@ WORKDIR /code
 
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV DATABASE_URI="mariadb+psycopg2://root:94082@localhost/MHStrategy"
+ENV DATABASE_URI="mariadb+pymysql://root:12345@localhost/MHStrategy"
 
-RUN pip install flask && pip install flask-sqlalchemy && pip install flask-migrate \
-    && pip install bcrypt && pip install python-dotenv
-
-EXPOSE 3000
-
+RUN pip install flask && pip install cryptography && pip install python-dotenv \
+    && pip install pymysql && pip install redis && pip install flask-sqlalchemy
 CMD [ "flask", "run" ]
