@@ -1,4 +1,4 @@
-from flask_app.config.db import db
+from ..config.db import db
 
 
 class Monster(db.Model):

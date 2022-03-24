@@ -15,13 +15,15 @@ def create_routes(app):
         email = request.json.get("email", None)
         password = request.json.get("password", None)
         username = request.json.get("username", None)
-
+        find_email = User.query.filter_by(email=email).first()
         try:
             user = User(
                 email=email,
                 password=encrypt_pass(password),
                 username=username
             )
+            if find_email:
+                return get_response(201, "user", {}, "E-mail já existe")
             db.session.add(user)
             db.session.commit()
             return get_response(201, "register user", user.to_json(), "User registered")
