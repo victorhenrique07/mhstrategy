@@ -1,5 +1,8 @@
 input{
     display: block;
+    height: 55px;
+    width: 400px;
+    margin: 10px;
 }
 
 div#teste{

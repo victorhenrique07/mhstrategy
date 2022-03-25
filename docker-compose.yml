@@ -2,10 +2,10 @@ version: '3.9'
 
 services:
   db:
-    image: mariadb
+    image: postgres
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: example
+      POSTGRES_PASSWORD: "466a1ee4eed0338d495cfe18a52a04e54a794e35ff6bc2324e464e0c006efb29"
 
   adminer:
     image: adminer
@@ -19,6 +19,10 @@ services:
       - "3000:3000"
     container_name: mhstrategy-api
     restart: always
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - DATABASE_URI="postgresql://wlmxxjvkbxzalz:466a1ee4eed0338d495cfe18a52a04e54a794e35ff6bc2324e464e0c006efb29@ec2-3-225-213-67.compute-1.amazonaws.com:5432/dfjcq3qk0jsdk3"
     volumes:
       - ./flask_app:/app/flask_app
     links:

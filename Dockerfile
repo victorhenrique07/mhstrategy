@@ -4,14 +4,11 @@ WORKDIR /app
 
 COPY . /app/
 
-ENV FLASK_APP=app.py
-ENV FLASK_ENV=development
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV DATABASE_URI="mariadb+pymysql://rick:12345@localhost/MHStrategy"
-
 RUN pip install --upgrade pip && \
     pip install poetry && \
     poetry install
+
+ENV FLASK_RUN_HOST=0.0.0.0
 
 EXPOSE 3000
 
