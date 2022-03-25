@@ -2,10 +2,10 @@ version: '3.9'
 
 services:
   db:
-    image: postgres
+    image: mariadb
     restart: always
     environment:
-      - POSTGRES_PASSWORD="466a1ee4eed0338d495cfe18a52a04e54a794e35ff6bc2324e464e0c006efb29"
+      MARIADB_ROOT_PASSWORD: example
 
   adminer:
     image: adminer
