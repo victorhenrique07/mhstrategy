@@ -1,5 +1,5 @@
 import json
-from flask import Response, request, Blueprint
+from flask import Response, request, Blueprint, render_template
 from ..model.model import *
 from cryptography.fernet import Fernet
 from ..db import db
@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route("/")
 def home():
-    return "hello"
+    return render_template("register.html")
 
 @auth.route("/register", methods=["POST"])
 def register_user():
