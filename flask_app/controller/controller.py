@@ -1,5 +1,5 @@
 import json
-from flask import Response, request, Blueprint, render_template
+from flask import Response, redirect, request, Blueprint, render_template, url_for
 from ..model.model import *
 from cryptography.fernet import Fernet
 from ..db import db
@@ -9,28 +9,25 @@ auth = Blueprint('auth', __name__)
 
 @auth.route("/")
 def home():
-    return render_template("register.html")
+    return "hi"
 
-@auth.route("/register", methods=["POST"])
+@auth.route("/register", methods=['GET', 'POST'])
 def register_user():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    username = request.json.get("username", None)
-    find_email = User.query.filter_by(email=email).first()
+    #find_email = User.query.filter_by(email=email).first()
     try:
-        user = User(
-            email=email,
-            password=encrypt_pass(password),
-            username=username
-        )
-        if find_email:
-            return get_response(201, "user", {}, "E-mail já existe")
-        db.session.add(user)
-        db.session.commit()
-        return get_response(201, "register user", user.to_json(), "User registered")
+        if request.method == 'POST':
+            email = request.form["email"]
+            username = request.form["username"]
+            password = request.form["password"]
+            user = User(email,encrypt_pass(password),username)
+
+            db.session.add(user)
+            db.session.commit()
+
+        return render_template("register.html")
     except Exception as e:
         print(e)
-        return get_response(404, "shit", e)
+        return "deu ruim"
 
 
 def get_response(status, resource_name, resource, message=False):
