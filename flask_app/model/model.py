@@ -8,14 +8,12 @@ class Monster(db.Model):
     strong = db.Column(db.String(255), unique=False, nullable=False)
     build = db.Column(db.Text, unique=False, nullable=False)
 
-    def to_json(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "weakness": self.weakness,
-            "strong": self.strong,
-            "build": self.build,
-        }
+    def __init__(self, name, weakness, strong, build):
+        self.name = name
+        self.weakness = weakness
+        self.strong = strong
+        self.build = build
+
 
 
 class User(db.Model):
@@ -24,10 +22,7 @@ class User(db.Model):
     password = db.Column(db.String(230), unique=False, nullable=False)
     username = db.Column(db.String(45), unique=True, nullable=False)
 
-    def to_json(self):
-        return {
-            "id": self.id,
-            "email": self.email,
-            "password": self.password,
-            "username": self.username
-        }
+    def __init__(self, email, password, username):
+        self.email = email
+        self.password = password
+        self.username = username
