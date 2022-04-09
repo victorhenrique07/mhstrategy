@@ -1,20 +1,28 @@
 from flask import Flask
-from os import getenv
-from .controller.controller import auth
-from flask_migrate import Migrate
-from .db import db
 
-DATABASE_URI = getenv("DATABASE_URI")
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+
+db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.register_blueprint(auth, url_prefix='/')
+    app.config['SECRET_KEY'] = 'secret'
+    app.config['SQLALCHEMY_DATABASE_URI'] = "mariadb+pymysql://root:94082@localhost/MHStrategy"
     db.init_app(app)
-    Migrate(app, db)
 
-    with app.app_context():
-        db.create_all
+    from flask_app.controller import auth
+
+    app.register_blueprint(auth, url_prefix='/')
+
+    from flask_app.model import User
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
     return app
