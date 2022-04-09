@@ -1,7 +1,7 @@
 from flask import redirect, request, Blueprint, render_template, url_for
 from flask_app.model import *
 from flask_app import db
-from flask_login import login_user, logout_user, LoginManager
+from flask_login import login_user, logout_user
 import logging
 
 auth = Blueprint('auth', __name__)
@@ -46,7 +46,8 @@ def login():
                 return redirect(url_for("auth.login"))
 
             login_user(user)
+            logging.info("User Logged!")
             return redirect(url_for("auth.home"))
     except Exception as e:
-        print(e)
+        logging.error(e)
     return render_template("login.html")
