@@ -18,12 +18,9 @@ class Monster(db.Model):
     strong = db.Column(db.String(255), unique=False, nullable=False)
     build = db.Column(db.Text, unique=False, nullable=False)
 
-    def __init__(self, name, weakness, strong, build):
-        self.name = name
-        self.weakness = weakness
-        self.strong = strong
-        self.build = build
-
+    @classmethod
+    def build_new_monster(cls, name, weakness, strong, build)
+        return Monster(name, weakness, strong, build)
 
 
 class User(db.Model, UserMixin):
@@ -32,7 +29,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(230), unique=False, nullable=False)
     username = db.Column(db.String(45), unique=True, nullable=False)
 
-    def __init__(self, email, password, username):
-        self.email = email
-        self.password = encrypt_pass(password)
-        self.username = username
+    @classmethod
+    def build_new_user(cls, username, email, password):
+        return User(username=username, email=email, password=encrypt_pass(password))
