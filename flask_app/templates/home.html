@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/home.css')}}">
+    <title>MHStrategy</title>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <div class="faixa">
+        <div class="user_logado">
+            <p>{{ current_user.username }}</p>
+        </div>
+    </div>
+
+    {% else %}
+
+    <div class="user_deslogado">
+        <form action="/register">
+            <p>Ainda não tem uma conta?<a href="http://127.0.0.1:5000/register">Registre-se!</a></p>
+        </form>
+    </div>
+    {% endif %}
+</body>
+</html>

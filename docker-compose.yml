@@ -24,5 +24,11 @@ services:
       - "3000:3000"
     container_name: mhstrategy-api
     restart: always
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - DATABASE_URI="mariadb+pymysql://root:94082@localhost/MHStrategy"
+    volumes:
+      - ./flask_app:/app/flask_app
     links:
       - db

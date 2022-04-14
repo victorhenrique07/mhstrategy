@@ -1,0 +1,25 @@
+body{
+    background-color:bisque;
+}
+
+input{
+    text-align: center;
+    display: block;
+    height: 35px;
+    width: 400px;
+    margin: 10px;
+}
+
+div#teste{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.login_register p{
+    display: inline-block;
+    font-size: large;
+    align-items: center;
+    padding: 10px;
+}
