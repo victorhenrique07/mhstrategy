@@ -9,14 +9,18 @@
 </head>
 <body>
     {% if current_user.is_authenticated %}
-    <div class="user_logado">
-        <p>{{ current_user.username }}</p>
+    <div class="faixa">
+        <div class="user_logado">
+            <p>{{ current_user.username }}</p>
+        </div>
     </div>
 
     {% else %}
 
     <div class="user_deslogado">
-        <p>Ainda não tem uma conta? Registre-se!</p>
+        <form action="/register">
+            <p>Ainda não tem uma conta?<a href="http://127.0.0.1:5000/register">Registre-se!</a></p>
+        </form>
     </div>
     {% endif %}
 </body>
