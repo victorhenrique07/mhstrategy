@@ -9,10 +9,10 @@ python = "^3.10"
 Flask = "^2.0.3"
 Flask-SQLAlchemy = "^2.5.1"
 redis = "^4.1.4"
-python-dotenv = "^0.19.2"
 cryptography = "^36.0.2"
-psycopg2-binary = "^2.9.3"
 Flask-Migrate = "^3.1.0"
+Flask-Login = "^0.6.0"
+PyMySQL = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
