@@ -11,5 +11,11 @@ div#teste{
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
+}
+
+div.login_register p{
+    display: inline-block;
+    font-size: large;
+    align-items: center;
+    padding: 10px;
 }

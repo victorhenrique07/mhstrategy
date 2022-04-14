@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 @auth.route("/")
 @login_required
 def home():
-    return render_template("home.html", user=current_user.id)
+    return render_template("home.html")
 
 
 @auth.route("/home/builds")
