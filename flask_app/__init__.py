@@ -2,6 +2,9 @@ from flask import Flask
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from os import getenv
+
+DATABASE_URI = getenv("DATABASE_URI")
 
 db = SQLAlchemy()
 
@@ -9,7 +12,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'secret'
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mariadb+pymysql://root:94082@localhost/MHStrategy"
+    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
     db.init_app(app)
 
     from flask_app.controller import auth
@@ -24,5 +27,5 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return User.query.filter_by(id=id).first()
     return app
