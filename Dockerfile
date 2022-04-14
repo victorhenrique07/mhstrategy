@@ -9,7 +9,7 @@ RUN pip install --upgrade pip && \
     poetry install
 
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV DATABASE_URI=mariadb+psycopg2://root:94082@localhost/MHStrategy
+ENV DATABASE_URI="mariadb+pymysql://root:94082@localhost/MHStrategy"
 
 RUN pip install flask
 
