@@ -1,3 +1,7 @@
+body{
+    background-color: bisque;
+}
+
 div.user_logado {
     color: white;
     text-align: right;
@@ -5,6 +9,6 @@ div.user_logado {
 }
 
 div.faixa {
-    background: skyblue;
+    background: rgb(240, 149, 30);
     height: 30px 0px 10px 0px;
 }
