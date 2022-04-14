@@ -19,7 +19,7 @@ class Monster(db.Model):
     build = db.Column(db.Text, unique=False, nullable=False)
 
     @classmethod
-    def build_new_monster(cls, name, weakness, strong, build)
+    def build_new_monster(cls, name, weakness, strong, build):
         return Monster(name, weakness, strong, build)
 
 
