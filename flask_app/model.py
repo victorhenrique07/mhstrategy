@@ -24,15 +24,15 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), unique=False, nullable=False)
     username = db.Column(db.String(45), unique=True, nullable=False)
 
-    def __init__(self, email, username, password):
+    def __init__(self, email, password, username):
         self.email = email
-        self.username = username
         self.password = generate_password_hash(password)
-    
+        self.username = username
+        
     def verify_password(self, pwd):
         return check_password_hash(self.password, pwd)
 
     @classmethod
-    def build_new_user(cls, username, email, password):
-        return User(username=username, email=email, password=password)
+    def build_new_user(cls, email, password, username):
+        return User(email=email, password=password, username=username)
     
