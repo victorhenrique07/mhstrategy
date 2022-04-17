@@ -1,6 +1,5 @@
-from flask import redirect, request, Blueprint, render_template, url_for
+from flask import redirect, request, Blueprint, render_template, url_for, flash
 from flask_app.model import *
-from flask_app import db
 from flask_login import login_required, login_user, logout_user, current_user
 import logging
 
@@ -47,14 +46,13 @@ def login():
             password = request.form["password"]
 
             user = User.query.filter_by(email=email).first()
-
             if not user:
-                logging.error("E-mail or password incorrect. Try again.")
+                print(user)
                 return redirect(url_for("auth.login"))
 
             login_user(user)
-            logging.info("User Logged!")
             return redirect(url_for("auth.home"))
+
         return render_template("login.html")
     except Exception as e:
         print(e)
