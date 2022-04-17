@@ -28,7 +28,8 @@ input{
 .teste a {
     color: black;
     text-decoration: none;
-    font-weight: normal;
+    font-weight: bold;
+    padding: 0px 10px 0px 0px;
 }
 
 header {

@@ -35,4 +35,3 @@ class User(db.Model, UserMixin):
     @classmethod
     def build_new_user(cls, email, password, username):
         return User(email=email, password=password, username=username)
-    
