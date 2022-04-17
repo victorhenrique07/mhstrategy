@@ -9,15 +9,20 @@
 </head>
 <body>
     {% if current_user.is_authenticated %}
-    <div class="faixa">
-        <div class="user_logado">
-            <p>{{ current_user.username }}</p>
-        </div>
-    </div>
+    <header>
+        <div class="center">
+            <div class="menu">
+                <a href="#">{{ current_user.username }}</a>
+                <a href="/register">Cadastro</a>
+                <a href="/login">Login</a>
+                <a href="/home/builds">Strategies</a>
+            </div> <!--menu-->
+        </div> <!--center-->
+    </header>
 
     {% else %}
 
-    <div class="user_deslogado">
+    <div class="menu">
         <form action="/register">
             <p>Ainda não tem uma conta?<a href="http://127.0.0.1:5000/register">Registre-se!</a></p>
         </form>

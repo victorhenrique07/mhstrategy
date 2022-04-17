@@ -1,11 +1,5 @@
-optgroup{
+#option_monster optgroup{
     background-color: bisque;
     height: 65px;
     width: 100px;
-}
-
-option{
-    overflow-x: hidden;
-    overflow-y: scroll;
-    font-size: medium;
 }

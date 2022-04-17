@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="{{url_for('static', filename='styles/sign.css')}}">
 </head>
 <body>
-    <div id="teste">
+    <header>
+        <div class="menu">
+            <a href="/">home</a>
+        </div>
+    </header>
+    <div class="teste">
         <h2 style="text-align: center;">Cadastro</h2>
-        <form method="POST" action="">
+        <form method="POST">
             <input type="email" name="email" placeholder="Digite seu e-mail">
             <input type="password" name="password" placeholder="Digite sua senha">
             <input type="text" name="username" placeholder="Digite seu username">
             <input type="submit" value="Enviar" style="width: 408px;">
-            <p style="text-align: right;"><a href="http://127.0.0.1:5000/login"><strong>Faça login!</strong></a></p>
         </form>
+        <a href="/login">Faça login!</a>
+    </div>

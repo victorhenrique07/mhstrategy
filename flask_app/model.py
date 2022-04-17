@@ -1,19 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from cryptography.fernet import Fernet
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-def encrypt_pass(password):
-    password = bytes(password, encoding='utf8')
-    key = Fernet.generate_key()
-    f = Fernet(key)
-    token = f.encrypt(password)
-    return token
-
 class Monster(db.Model):
+    __tablename__ = 'monsters'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=False, nullable=False)
+    name = db.Column(db.String(240), unique=False, nullable=False)
     weakness = db.Column(db.String(255), unique=False, nullable=False)
     strong = db.Column(db.String(255), unique=False, nullable=False)
     build = db.Column(db.Text, unique=False, nullable=False)
@@ -24,11 +18,20 @@ class Monster(db.Model):
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(30), unique=True, nullable=False)
-    password = db.Column(db.String(230), unique=False, nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(255), unique=False, nullable=False)
     username = db.Column(db.String(45), unique=True, nullable=False)
 
+    def __init__(self, email, password, username):
+        self.email = email
+        self.password = generate_password_hash(password)
+        self.username = username
+        
+    def verify_password(self, pwd):
+        return check_password_hash(self.password, pwd)
+
     @classmethod
-    def build_new_user(cls, username, email, password):
-        return User(username=username, email=email, password=encrypt_pass(password))
+    def build_new_user(cls, email, password, username):
+        return User(email=email, password=password, username=username)
