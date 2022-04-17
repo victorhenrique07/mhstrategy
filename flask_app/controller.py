@@ -26,8 +26,10 @@ def register_user():
             user = User.build_new_user(email, password, username)
             search_email = User.query.filter_by(email=email).first()
 
-            if search_email:
-                return redirect(url_for("auth.login"))
+            if email and username and password:
+                if search_email:
+                    flash("E-mail already exists.")
+                    return redirect(url_for("auth.login"))
 
             db.session.add(user)
             db.session.commit()
@@ -47,7 +49,9 @@ def login():
 
             user = User.query.filter_by(email=email).first()
             if not user:
-                print(user)
+                flash("E-mail not exist.")
+                return redirect(url_for("auth.login"))
+            elif user and not user.verify_password(password):
                 return redirect(url_for("auth.login"))
 
             login_user(user)
