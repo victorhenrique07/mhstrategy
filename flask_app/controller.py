@@ -84,6 +84,7 @@ def return_all_monsters():
 
 @auth.route("/monsters/<monster>", methods=["GET"])
 def return_a_monster(monster):
+    monster = monster.title()
     try:
         with open("flask_app/monster_json/monster_base.json") as file:
             data = json.load(file)
