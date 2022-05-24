@@ -1,10 +1,13 @@
-from this import d
-from flask import redirect, Response, request, Blueprint, render_template, url_for, flash
-from flask_app.model import *
-from flask_login import login_required, login_user, logout_user, current_user
-from flask_app.monsters.models import AllMonsters
+import json
 
-auth = Blueprint('auth', __name__)
+from flask import (Blueprint, Response, flash, redirect, render_template,
+                   request, url_for)
+from flask_login import current_user, login_required, login_user, logout_user
+
+from flask_app.model import *
+
+auth = Blueprint("auth", __name__)
+
 
 @auth.route("/")
 @login_required
@@ -17,10 +20,10 @@ def monsters_build():
     return render_template("monsters.html")
 
 
-@auth.route("/register", methods=['GET', 'POST'])
+@auth.route("/register", methods=["GET", "POST"])
 def register_user():
     try:
-        if request.method == 'POST':
+        if request.method == "POST":
             email = request.form["email"]
             username = request.form["username"]
             password = request.form["password"]
@@ -41,10 +44,11 @@ def register_user():
         print(e)
         return "deu ruim"
 
+
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     try:
-        if request.method == 'POST':
+        if request.method == "POST":
             email = request.form["email"]
             password = request.form["password"]
 
@@ -63,20 +67,34 @@ def login():
         print(e)
     return 400, "Error"
 
-@auth.route("/monsters/<monster>", methods=["GET"])
+
+@auth.route("/monsters", methods=["GET"])
 def return_all_monsters():
-    try:        
-        import json
-        with open('flask_app/teste.json') as file:
+    try:
+        with open("flask_app/monster_json/monster_base.json") as file:
             data = json.load(file)
-            jsonFile = [monster['name_en'] for monster in data]
+            jsonFile = [monster["name_en"] for monster in data]
             if jsonFile:
-                teste = Response(
-                    json.dumps(jsonFile),
-                    mimetype="application/json"
-                )
-                return teste
+                return return_json(jsonFile)
         return "hi"
     except Exception as e:
         print(e)
         return "deu ruim mon"
+
+
+@auth.route("/monsters/<monster>", methods=["GET"])
+def return_a_monster(monster):
+    try:
+        with open("flask_app/monster_json/monster_base.json") as file:
+            data = json.load(file)
+            for monster_name in data:
+                if monster_name["name_en"] == monster:
+                    return return_json(monster_name)
+        return "deu erro"
+    except Exception as e:
+        print(e)
+        return "ERROR"
+
+
+def return_json(json_file):
+    return Response(json.dumps(json_file), mimetype="application/json")
