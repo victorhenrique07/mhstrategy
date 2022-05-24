@@ -1,7 +1,8 @@
-from flask import redirect, request, Blueprint, render_template, url_for, flash
+from this import d
+from flask import redirect, Response, request, Blueprint, render_template, url_for, flash
 from flask_app.model import *
 from flask_login import login_required, login_user, logout_user, current_user
-import logging
+from flask_app.monsters.models import AllMonsters
 
 auth = Blueprint('auth', __name__)
 
@@ -61,3 +62,21 @@ def login():
     except Exception as e:
         print(e)
     return 400, "Error"
+
+@auth.route("/monsters/<monster>", methods=["GET"])
+def return_all_monsters():
+    try:        
+        import json
+        with open('flask_app/teste.json') as file:
+            data = json.load(file)
+            jsonFile = [monster['name_en'] for monster in data]
+            if jsonFile:
+                teste = Response(
+                    json.dumps(jsonFile),
+                    mimetype="application/json"
+                )
+                return teste
+        return "hi"
+    except Exception as e:
+        print(e)
+        return "deu ruim mon"
