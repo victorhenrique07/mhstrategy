@@ -13,3 +13,12 @@ def test_if_a_list_of_endpoints_is_returning_200(flask_app):
             response = test_client.get(endpoints_list[i])
             assert response.status_code == 200
             
+def test_register_user(flask_app):
+    with flask_app.test_client() as test_client:
+        data = {
+            "email": "teste@pytest.com",
+            "password": "testando092",
+            "username": "pytest"
+        }
+        response = test_client.post('/register', json=data)
+        assert response.status_code == 200
