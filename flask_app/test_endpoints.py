@@ -1,4 +1,4 @@
-from flask_app import create_app
+import json
 
 def test_if_user_is_not_logged(flask_app):
     with flask_app.test_client() as test_client:
@@ -16,9 +16,23 @@ def test_if_a_list_of_endpoints_is_returning_200(flask_app):
 def test_register_user(flask_app):
     with flask_app.test_client() as test_client:
         data = {
-            "email": "teste@pytest.com",
+            "email": "testepytestcom",
             "password": "testando092",
             "username": "pytest"
         }
-        response = test_client.post('/register', json=data)
-        assert response.status_code == 200
+        response = test_client.post('/register', data=json.dumps(data),
+                                    headers={"Content-Type": "application/json"}
+                                    )
+        assert response.status_code == 302
+        
+def test_login_user(flask_app):
+    with flask_app.test_client() as test_client:
+        data = {
+            "email": "testepytestcom",
+            "password": "testando092"
+        }
+        response = test_client.post('/login',json=data,
+                                    headers={"Content-Type": "application/json"}
+                                    )
+        assert response.status_code == 302
+        
